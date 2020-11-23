@@ -173,20 +173,201 @@ if (isset($_POST['submit'])) {
 				}
 			}
 		}
-		//    Data Berkas Diri
+		//    Data Pendidikan
 		$Reader = new PHPExcelReader($file_task);
-		$Reader->ChangeSheet(1);
+		$Reader->ChangeSheet(2);
 		foreach ($Reader as $key => $readerRow) {
 			$data = null;
 			$data = $readerRow;
+
 			// looping data
-			$no = $data[0];
-			$nama_file = $data[1];
-			$file = $data[2];
+				$id_tingkat_pendidikan = $data[1];
+			$nama_pendidikan = $data[2];
+			$jurusan = $data[3];
+			$STTB = $data[4];
+			$file = $data[5];
+			$Tempat = $data[6];
+			$Nama_Kepala = $data[7];
+
 
 			if($id_pegawai != 0){
-				if($nama_file != 'Nama file') {
-					$insert = "INSERT pegawai_berkas(id_pegawai,nama,file,nik)VALUES('$id_pegawai','$nama_file','$file','$nik')";
+				if($id_tingkat_pendidikan != 'id tingkat pendidikan') {
+					$insert = "INSERT pegawai_pendidikan(id_pegawai, nik, nama_pendidikan, jurusan, sttb, tempat, nama_kepala)
+					VALUES
+					('$id_pegawai', '$nik',  '$nama_pendidikan', '$jurusan', '$sttb',  '$tempat', '$nama_kepala')";
+					mysqli_query($conn, $insert);
+				} else {
+					echo "Data Sudah Ada!!!";
+				}
+			}
+		}
+			//    Data Kursus
+		$Reader = new PHPExcelReader($file_task);
+		$Reader->ChangeSheet(3);
+		foreach ($Reader as $key => $readerRow) {
+			$data = null;
+			$data = $readerRow;
+
+			// looping data
+					$nama_kursus =$data[1];
+			$tanggal_awal =$data[3];
+			$tanggal_akhir =$data[3];
+			$ijazah =$data[4];
+			$file_ijazah =$data[5];
+			$tempat =$data[6];
+			$keterangan =$data[7];
+
+
+			if($id_pegawai != 0){
+				if($nama_kursus != 'nama_kursus') {
+					$insert = "INSERT pegawai_kursus( id_pegawai, nik, nama_kursus, tanggal_awal, tanggal_akhir, ijazah, file_ijazah, tempat, keterangan)
+					VALUES
+					('$id_pegawai', '$nik', '$nama_kursus', '$tanggal_awal', '$tanggal_akhir', '$ijazah', '$file_ijazah', '$tempat', '$keterangan')";
+					mysqli_query($conn, $insert);
+				} else {
+					echo "Data Sudah Ada!!!";
+				}
+			}
+		}
+				//    Data Riwayat Pekerjaan
+		$Reader = new PHPExcelReader($file_task);
+		$Reader->ChangeSheet(4);
+		foreach ($Reader as $key => $readerRow) {
+			$data = null;
+			$data = $readerRow;
+
+			// looping data
+			$pangkat =$data[1];
+			$golongan =$data[2];
+			$berlaku_tmt =$data[3];
+			$gaji_pokok =$data[4];
+			$pejabat_putusan =$data[5];
+			$nomor_putusan =$data[6];
+			$tanggal_putusan =$data[7];
+			$keterangan =$data[8];
+			$file =$data[9];
+			$masa =$data[10];
+			$id_pangkat =$data[11];
+			$jenis =$data[12];
+
+
+			if($id_pegawai != 0){
+				if($pangkat != 'pangkat') {
+					$insert = "INSERT pegawai_golongan(id_pegawai, pangkat, golongan, berlaku_tmt, gaji_pokok, pejabat_keputusan, nomor_keputusan, tanggal_keputusan, keterangan, file, masa ,jenis, nik  )
+					VALUES
+					('$id_pegawai', '$pangkat', '$golongan', '$berlaku_tmt', '$gaji_pokok', '$pejabat_keputusan', '$nomor_keputusan', '$tanggal_keputusan', '$keterangan', '$file', '$masa', '$jenis', '$nik')";
+					mysqli_query($conn, $insert);
+				} else {
+					echo "Data Sudah Ada!!!";
+				}
+			}
+		}
+						//    Data Pengalaman Jabatan Pekerjaan
+		$Reader = new PHPExcelReader($file_task);
+		$Reader->ChangeSheet(5);
+		foreach ($Reader as $key => $readerRow) {
+			$data = null;
+			$data = $readerRow;
+
+			// looping data
+	$nama_jabatan = $data[1];
+			$tanggal_mulai = $data[2];
+			$tanggal_akhir = $data[3];
+				$sekarang = $data[4];
+			$golongan = $data[5];
+			$gaji_pokok = $data[6];
+			$pejabat_keputusan = $data[7];
+			$tanggal_keputusan = $data[8];
+			$file = $data[9];
+			$no_keputusan = $data[10];
+
+
+			if($id_pegawai != 0){
+				if($nama_jabatan != 'nama jabatan') {
+					$insert = "INSERT pegawai_pangkat( id_pegawai, nik, tanggal_mulai, tanggal_akhir, sekarang, golongan, gaji_pokok, pejabat_keputusan, tanggal_keputusan, no_keputusan,
+					nama_jabatan)
+					VALUES
+					( '$id_pegawai', '$nik', $tanggal_mulai', '$tanggal_akhir', '$sekarang', '$golongan', '$gaji_pokok', '$pejabat_keputusan', '$tanggal_keputusan',  '$no_keputusan',
+					'$nama_jabatan')";
+					mysqli_query($conn, $insert);
+				} else {
+					echo "Data Sudah Ada!!!";
+				}
+			}
+		}
+		//    Data Pegawai Penghargaan
+		$Reader = new PHPExcelReader($file_task);
+		$Reader->ChangeSheet(6);
+		foreach ($Reader as $key => $readerRow) {
+			$data = null;
+			$data = $readerRow;
+
+			// looping data
+	$nama_penghargaan = $data[1];
+			$tahun_perolehan = $data[2];
+			$Nama_Negara = $data[3];
+
+
+			if($id_pegawai != 0){
+				if($nama_penghargaan != 'nama penghargaan') {
+					$insert = "INSERT pegawai_penghargaan( id_pegawai, nik, nama_penghargaan, tahun_perolehan, nama_negara)
+					VALUES
+					( '$id_pegawai', '$nik', '$nama_penghargaan', '$tahun_perolehan', '$nama_negara')";
+					mysqli_query($conn, $insert);
+				} else {
+					echo "Data Sudah Ada!!!";
+				}
+			}
+		}
+				//    Data Pengalaman
+		$Reader = new PHPExcelReader($file_task);
+		$Reader->ChangeSheet(7);
+		foreach ($Reader as $key => $readerRow) {
+			$data = null;
+			$data = $readerRow;
+
+			// looping data
+				$nama_negara = $data[1];
+			$tujuan_kunjungan = $data[2];
+			$lama_kunjungan = $data[3];
+			$sponsor = $data[4];
+
+
+
+			if($id_pegawai != 0){
+				if($nama_negara != 'nama negara') {
+					$insert = "INSERT pegawai_pengalaman id_pegawai, nik, nama_negara, tujuan_kunjungan, sponsor)
+					VALUES
+					( '$id_pegawai', '$nik', '$nama_negara', '$tujuan_kunjungan',  '$sponsor')";
+					mysqli_query($conn, $insert);
+				} else {
+					echo "Data Sudah Ada!!!";
+				}
+			}
+		}
+						//    Data Suami
+		$Reader = new PHPExcelReader($file_task);
+		$Reader->ChangeSheet(8);
+		foreach ($Reader as $key => $readerRow) {
+			$data = null;
+			$data = $readerRow;
+
+			// looping data
+				$nama = $data[1];
+			$jenis = $data[2];
+			$tempat_lahir = $data[3];
+			$tanggal_lahir = $data[4];
+			$tanggal_menikah = $data[5];
+			$pekerjaan = $data[6];
+			$keterangan = $data[7];
+
+
+
+			if($id_pegawai != 0){
+				if($nama != 'nama') {
+					$insert = "INSERT pegawai_suami( id_pegawai, nik, nama, jenis, tempat_lahir, tanggal_lahir, tanggal_menikah, pekerjaan, keterangan)
+					VALUES
+					(' '$id_pegawai', '$nik', '$nama', '$jenis', '$tempat_lahir', '$tanggal_lahir', '$tanggal_menikah', '$pekerjaan', '$keterangan')";
 					mysqli_query($conn, $insert);
 				} else {
 					echo "Data Sudah Ada!!!";
